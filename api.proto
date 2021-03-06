@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package api;
+
+service ResolverService {
+  rpc Apply(ApplyRequest)
+      returns (ApplyResponse);
+}
+
+message ApplyRequest {
+  SystemResolver resolver = 1;
+}
+
+message ApplyResponse {}
+
+// SystemResolver provides configuration options for the system resolver.
+//
+// https://man7.org/linux/man-pages/man5/resolv.conf.5.html.
+message SystemResolver{
+  repeated string nameserver = 1;
+  string search = 2;
+  repeated string sortlist = 3;
+  repeated SystemResolverOptions options = 4;
+}
+
+message SystemResolverOptions{
+  bool debug = 1;
+  uint32 ndots = 2;
+  uint32 timeout = 3;
+  uint32 attempts = 4;
+  bool rotate = 5;
+  bool no_check_names = 6;
+  bool inet6 = 7;
+  bool ip6_bytestring = 8;
+  bool ip6_dotint = 9;
+  bool edns0 = 10;
+  bool single_request = 11;
+  bool single_request_reopen = 12;
+  bool no_tld_query = 13;
+  bool use_vc = 14;
+  bool no_reload = 15;
+  bool trust_ad = 16;
+}
